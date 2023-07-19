@@ -1,6 +1,6 @@
 # Extractive Summarization using BERT & HuggingFace
 
-This repository presents a fine-tuning pipeline for BERT, aiming at Extractive Summarization tasks. The original model was proposed by [Liu, 2019](https://arxiv.org/abs/1903.10318](https://github.com/nlpyang/BertSum) to ["Fine-Tune BERT for Extractive Summarization"](https://arxiv.org/abs/1903.10318). While [HuggingFace](https://huggingface.co/) Transformers offers an expansive library for various tasks, a comprehensive pipeline for extractive summarization is missing. 
+This repository presents a fine-tuning pipeline for BERT, aiming at Extractive Summarization tasks. The original model was proposed by [Liu, 2019](https://github.com/nlpyang/BertSum) to ["Fine-Tune BERT for Extractive Summarization"](https://arxiv.org/abs/1903.10318). While [HuggingFace](https://huggingface.co/) Transformers offers an expansive library for various tasks, a comprehensive pipeline for extractive summarization is missing. 
 The project also served as a tool for model interpretability using gradient-based methods from [Captum](https://github.com/pytorch/captum) and an attention-based method named [ALTI](https://github.com/mt-upc/transformer-contributions).
 
 Additionally, I'm quite interested in the idea of highlighting text while maintaining the original content in order to improve my book summaries. You might find [kindlenotionsync](https://github.com/eReverter/kindlenotionsync) useful, as it's a handy tool for synchronizing Kindle highlights with Notion.
