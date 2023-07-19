@@ -1,7 +1,7 @@
 # Extractive Summarization using BERT & HuggingFace
 
-This repository presents a fine-tuning pipeline for BERT, aiming at Extractive Summarization tasks. The original model was proposed by [Liu (2019)](https://arxiv.org/abs/1903.10318](https://github.com/nlpyang/BertSum) to ["Fine-Tune BERT for Extractive Summarization](https://arxiv.org/abs/1903.10318). While [HuggingFace](https://huggingface.co/) Transformers offers an expansive library for various tasks, a comprehensive pipeline for extractive summarization is missing. 
-The project also served as a tool for model interpretability using gradient-based methods from [Captum](https://github.com/pytorch/captum) and an attention-based method named ALTI(https://github.com/mt-upc/transformer-contributions).
+This repository presents a fine-tuning pipeline for BERT, aiming at Extractive Summarization tasks. The original model was proposed by [Liu, 2019](https://arxiv.org/abs/1903.10318](https://github.com/nlpyang/BertSum) to ["Fine-Tune BERT for Extractive Summarization"](https://arxiv.org/abs/1903.10318). While [HuggingFace](https://huggingface.co/) Transformers offers an expansive library for various tasks, a comprehensive pipeline for extractive summarization is missing. 
+The project also served as a tool for model interpretability using gradient-based methods from [Captum](https://github.com/pytorch/captum) and an attention-based method named [ALTI](https://github.com/mt-upc/transformer-contributions).
 
 Additionally, I'm quite interested in the idea of highlighting text while maintaining the original content in order to improve my book summaries. You might find [kindlenotionsync](https://github.com/eReverter/kindlenotionsync) useful, as it's a handy tool for synchronizing Kindle highlights with Notion.
 
@@ -41,7 +41,7 @@ python run_extsum.py \
 
 ## Evaluation
 
-Evaluation is done using the ROUGE metric available at HuggingFace's `evaluation` library. To evaluate the model, use the [`evaluate_model.py](https://github.com/eReverter/bertsum-hf/blob/main/evaluate_model.py)` script as follows:
+Evaluation is done using the ROUGE metric available at HuggingFace's `evaluation` library. To evaluate the model, use the [`evaluate_model.py`](https://github.com/eReverter/bertsum-hf/blob/main/evaluate_model.py) script as follows:
 
 ```bash
 python evaluate_model.py \
@@ -51,5 +51,23 @@ python evaluate_model.py \
   --save_name results.json # Name of the results file
 ```
 
+## Model Performance
+
+The table below displays the model's performance for different seeds. The model uploaded to HuggingFace corresponds to seed 3. It's worth mentioning that the choice of the ROUGE scoring system has a notable impact on the reported results. When using plain `pyrouge`, the scores tend to be higher, which is consistent with most articles. However, when utilizing the HuggingFace scoring pipeline, the scores decrease. This difference could be attributed to variations in how the texts are tokenized behind the scenes. Nevertheless, I decided to use the HuggingFace ROUGE implementation for consistency within the same framework. I performed tests on both Liu's and my models using different scoring systems and processed extractive datasets to ensure result consistency. 
+
+|                                   | Rouge-1 ↑ | Rouge-2 ↑ | Rouge-L ↑ |
+|-----------------------------------|-----------|-----------|-----------|
+| **greedy reference**              | 54.91     | 32.91     | 39.13     |
+| **benchmark** (transformer encoder) | 40.67     | 19.14     | 26.67     |
+| **bert-base-uncased** (linear encoder) |           |           |           |
+| -- Seed(3)                        | 39.35     | 18.02     | 25.54     |
+| -- Seed(4)                        | 39.32     | 17.98     | 25.48     |
+| -- Seed(5)                        | 39.33     | 18.03     | 25.32     |
+| **distilbert-base-uncased**       | 37.94     | 16.76     | 23.35     |
+| **bert-base-uncased** (random weights) | 29.75     | 9.78      | 18.21     |
+
+Table: Scores for the summarization task of each model with different initialization seeds. The best possible scores according to the greedy approach and the benchmark set by the original paper fine-tuning BERT for this task are shown, along with the scores for DistilBERT (not uploaded to HuggingFace). The ↑ symbol indicates that higher scores are better.
+
+
 ## Data and Weights
-The extractive version of the CNN Daily Mail dataset (version 3.0.0) is available in the Hugging Face repository under [eReverter/cnn_dailymail_extractive](https://huggingface.co/datasets/eReverter/cnn_dailymail_extractive), and the fine-tuned BERT model weights can be found at [eReverter/bert-finetuned-cnn_dailymail](https://huggingface.co/eReverter/bert-finetuned-cnn_dailymail). `Datasets`, `AutoTokenizer` and `AutoModel` can be used to load all of the required pieces, but check the [`playground.ipynb`](https://github.com/eReverter/bertsum-hf/blob/main/playground.ipynb) notebook to see how to process a single sample for inference. Tokenizing the text is not enough, it requires an additional step as in the `prepare_sample` from [`utils.py`](https://github.com/eReverter/bertsum-hf/blob/main/utils.py)https://github.com/eReverter/bertsum-hf/blob/main/utils.py.
+The extractive version of the CNN Daily Mail dataset (version 3.0.0) is available in the HuggingFace repository under [eReverter/cnn_dailymail_extractive](https://huggingface.co/datasets/eReverter/cnn_dailymail_extractive), and the fine-tuned BERT model weights can be found at [eReverter/bert-finetuned-cnn_dailymail](https://huggingface.co/eReverter/bert-finetuned-cnn_dailymail). `Datasets`, `AutoTokenizer` and `AutoModel` can be used to load all of the required pieces, but check the [`playground.ipynb`](https://github.com/eReverter/bertsum-hf/blob/main/playground.ipynb) notebook to see how to process a single sample for inference. Tokenizing the text is not enough, it requires an additional step as in the `prepare_sample` from [`utils.py`](https://github.com/eReverter/bertsum-hf/blob/main/utils.py).
