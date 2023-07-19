@@ -7,7 +7,7 @@ Additionally, I'm quite interested in the idea of highlighting text while mainta
 
 ## Converting Abstractive to Extractive
 
-There is a lack of datasets available to train models for the extractive summarization task. Thus, the [`abs_to_ext.py`](https://github.com/eReverter/bertsum-hf/blob/main/abs_to_ext.py) script allows you to convert existing datasets designed for abstractive summarization tasks to a format suitable for extractive tasks. This conversion is achieved through a greedy algorithm based on Liu (2019), maximizing the ROUGE score by iteratively adding sentences to the extractive summary. Alas, the extractive summaries are biased towards the first sentences of the context, but checking every possible combination is not feasible.
+There is a lack of datasets available to train models for the extractive summarization task. Thus, the [`abs_to_ext.py`](https://github.com/eReverter/bertsum-hf/blob/main/abs_to_ext.py) script allows you to convert existing datasets designed for abstractive summarization tasks to a format suitable for extractive tasks. This conversion is achieved through a greedy algorithm from Liu (2019), maximizing the ROUGE score by iteratively adding sentences to the extractive summary. Alas, the extractive summaries are biased towards the first sentences of the context, but checking every possible combination is not feasible.
 
 To convert a dataset, you can use the following command:
 
@@ -63,10 +63,9 @@ The table below displays the model's performance for different seeds. The model 
 | -- Seed(3)                        | 39.35     | 18.02     | 25.54     |
 | -- Seed(4)                        | 39.32     | 17.98     | 25.48     |
 | -- Seed(5)                        | 39.33     | 18.03     | 25.32     |
-| **distilbert-base-uncased**       | 37.94     | 16.76     | 23.35     |
 | **bert-base-uncased** (random weights) | 29.75     | 9.78      | 18.21     |
 
-Table: Scores for the summarization task of each model with different initialization seeds. The best possible scores according to the greedy approach and the benchmark set by the original paper fine-tuning BERT for this task are shown, along with the scores for DistilBERT (not uploaded to HuggingFace). The ↑ symbol indicates that higher scores are better.
+Table: Scores for the summarization task of each model with different initialization seeds. The best possible scores according to the greedy approach and the benchmark set by the original paper fine-tuning BERT for this task are shown, along with the scores for random weights. The ↑ symbol indicates that higher scores are better.
 
 
 ## Data and Weights
