@@ -5,6 +5,10 @@ The project also served as a tool for model interpretability using gradient-base
 
 Additionally, I'm quite interested in the idea of highlighting text while maintaining the original content in order to improve my book summaries. You might find [kindlenotionsync](https://github.com/eReverter/kindlenotionsync) useful, as it's a handy tool for synchronizing Kindle highlights with Notion.
 
+The architecture is the following:
+
+![BERT for Extractive Summarization](BERTSum.jpg)
+
 ## Converting Abstractive to Extractive
 
 There is a lack of datasets available to train models for the extractive summarization task. Thus, the [`abs_to_ext.py`](abs_to_ext.py) script allows you to convert existing datasets designed for abstractive summarization tasks to a format suitable for extractive tasks. This conversion is achieved through a greedy algorithm from Liu (2019), maximizing the ROUGE score by iteratively adding sentences to the extractive summary. Alas, the extractive summaries are biased towards the first sentences of the context, but checking every possible combination is not feasible.
