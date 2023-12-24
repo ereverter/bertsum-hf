@@ -31,7 +31,7 @@ python abs_to_ext.py \
 
 Data preparation is carried out as proposed by Liu (2019) as well. The text is split into sentences, tokenized, and sentences that are too long (short) are trimmed (discarded). The tokenized text is then pruned to 512 tokens, which may lead to loss of information in longer examples.
 
-The [`trainer.py`](src/trainer.py) and [`metrics.py`]src/metrics.py) files handle the fine-tuning process, offering a simplified version of the HuggingFace pipeline. The [`run_extsum.py`](run_extsum.py) script handles data preprocessing ([`data_preparation.py`](src/data_preparation.py)) and model training. Please note, this implementation is designed for BERT and may require tweaks for other models. Run configurations are stored in [`config.json`](configs/config.json).
+The [`trainer.py`](src/trainer.py) and [`metrics.py`])(src/metrics.py) files handle the fine-tuning process, offering a simplified version of the HuggingFace pipeline. The [`run_extsum.py`](run_extsum.py) script handles data preprocessing ([`data_preparation.py`](src/data_preparation.py)) and model training. Please note, this implementation is designed for BERT and may require tweaks for other models. Run configurations are stored in [`config.json`](configs/config.json).
 
 Use the following command to start training:
 
